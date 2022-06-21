@@ -12,7 +12,7 @@ namespace ECommerce.Domain.Models.Sales
         {
             Type = Enums.PromotionType.PercentageValuePromotion;
         }
-        public Decimal DiscountPercentage { get; set; }
+        public decimal DiscountPercentage { get; set; }
 
         public override decimal CalcDiscount(int quantity, decimal UnitPrice)
         {

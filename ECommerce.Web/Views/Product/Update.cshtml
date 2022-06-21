@@ -1,5 +1,60 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using ECommerce.Domain.Models.Sales.Enums
+@model Product;
+
 @{
+    ViewData["Title"] = "Atualizar Produto";
+}
+
+<h2>Atualizar Produto</h2>
+<hr />
+<form asp-action="Update">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+
+    <div class="row">
+        <div class="col-md-9">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>*
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="OriginalPrice" class="control-label"></label>*
+                <input id="OriginalPrice" name="OriginalPrice" value="@Model.OriginalPrice" class="form-control currency" />
+            </div>
+        </div>
+    </div>
+    @if(Model.Promotion != null)
+    {
+        <div class="row mt-2">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Promoção</label>*
+                    @Html.DropDownListFor(m=> m.Promotion.Type,
+                    Html.GetEnumSelectList(typeof(PromotionType)),
+                    "Sem promoção",
+                    new { @class = "form-control" }
+                    )
+                </div>
+            </div>
+        </div>
+    }
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <div class="form-group">
+                <input type="submit" value="Alterar" class="btn btn-primary float-end" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Voltar aos produtos</a>
+</div>
+
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
 }

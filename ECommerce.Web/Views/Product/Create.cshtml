@@ -1,32 +1,53 @@
-﻿@model Product;
+﻿@using ECommerce.Domain.Models.Sales.Enums
+@model Product;
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Adicionar Produto";
 }
 
-<h1>Novo Produto</h1>
+<h2>Novo Produto</h2>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col-md-6">
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+                <label asp-for="Name" class="control-label"></label>*
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-3">
             <div class="form-group">
-                <label asp-for="OriginalPrice" class="control-label"></label>
-                <input asp-for="OriginalPrice" class="form-control" />
-                <span asp-validation-for="OriginalPrice" class="text-danger"></span>
+                <label asp-for="OriginalPrice" class="control-label"></label>*
+                <input id="OriginalPrice" name="OriginalPrice" class="form-control currency" />
             </div>
+        </div>
+        <div class="col-md-3">
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label class="control-label">Promoção</label>*
+                @Html.DropDownList("PromoType",
+                    Html.GetEnumSelectList(typeof(PromotionType)),
+                    "Sem promoção",
+                    new { @class = "form-control" }
+                )
             </div>
-        </form>
+        </div>
     </div>
-</div>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <div class="form-group">
+                <input type="submit" value="Adicionar" class="btn btn-primary float-end" />
+            </div>
+        </div>
+    </div>
+</form>
 
 <div>
     <a asp-action="Index">Voltar aos produtos</a>
 </div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

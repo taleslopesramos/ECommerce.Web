@@ -1,50 +1,13 @@
 ﻿@model IEnumerable<Product>
 
-@{
-    ViewData["Title"] = "Lista de Produtos";
+@if(ViewContext.RouteData.Values["id"] == null)
+{
+    @await Html.PartialAsync("_List", Model)
 }
-<h1>Produtos</h1>
-
-<p>
-    <a asp-action="Create">Novo Produto</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OriginalPrice)
-            </th>
-            <th>
-                Promoção
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var product in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => product.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => product.OriginalPrice)
-                </td>
-                <td>
-                    @(product.Promotion != null ? "Sim" : "Não")
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@product.Id">Detalhes</a> |
-                    <a asp-action="Update" asp-route-id="@product.Id">Editar</a> |
-                    <a asp-action="Delete" asp-route-id="@product.Id">Deletar</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+else
+{
+    @await Html.PartialAsync("_Details", Model.First());
+}
 
 @section Scripts {
     <partial name="~/Views/Scripts/_ProductIndexJs.cshtml" />

@@ -1,0 +1,16 @@
+﻿<script>
+    $(function(){
+        $(".saleQuantity").on("change", ChangeActionAtualizar)
+    });
+
+    function ChangeActionAtualizar(event){
+        let elem = $(event.currentTarget);
+        let trElement = elem.parent().parent();
+        let anchorElement = trElement.find("a.atualizar");
+
+        let actualHref = anchorElement.prop("href")
+        // Update Quantity
+        actualHref = actualHref.replace(/\=[0-9]+/g,"="+elem.val())
+        anchorElement.prop("href", actualHref);
+    }
+</script>

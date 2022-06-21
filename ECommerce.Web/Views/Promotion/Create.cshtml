@@ -1,0 +1,28 @@
+﻿@using ECommerce.Domain.Models.Sales.Enums
+@model int
+
+<h1>Adicionar Promoção</h1>
+<hr />
+<form asp-action="Create" method="post">
+    <input type="hidden" name="ProductId" id="ProductId" value="@Model" />
+    <div class="row mt-2">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label class="control-label">Tipo de Promoção</label>*
+                @Html.DropDownList("PromoType",
+                Html.GetEnumSelectList(typeof(PromotionType)),
+                "Sem promoção",
+                new { @class = "form-control" }
+                )
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="submit" value="Criar" class="btn btn-primary float-start" />
+            </div>
+        </div>
+    </div>
+    
+</form>

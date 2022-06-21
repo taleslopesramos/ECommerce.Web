@@ -27,7 +27,6 @@ namespace ECommerce.Infra.Context
             builder.Entity<FixedValuePromotion>();
             builder.Entity<FreeItemPromotion>();
             builder.Entity<PercentageValuePromotion>();
-
             builder.Entity<ShopCart>(sc =>
             {
                 sc.HasKey(sc => sc.Id);
@@ -37,6 +36,8 @@ namespace ECommerce.Infra.Context
                 .HasForeignKey(s => s.ShopCartId)
                 .HasConstraintName("ShopCartSalesFK")
                 .OnDelete(DeleteBehavior.ClientSetNull);
+
+                sc.HasData(new ShopCart { Id = 1, CreationDate = DateTime.Now });
             });
 
             builder.Entity<Sale>(s =>
@@ -56,7 +57,7 @@ namespace ECommerce.Infra.Context
                 .WithOne(p => p.Product)
                 .HasForeignKey<Promotion>(p => p.ProductId)
                 .HasConstraintName("ProductPromotionFK")
-                .OnDelete(DeleteBehavior.ClientCascade);
+                .OnDelete(DeleteBehavior.Cascade);
             });
         }
     }

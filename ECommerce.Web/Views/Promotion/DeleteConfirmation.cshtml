@@ -1,0 +1,27 @@
+﻿@model Promotion
+
+<h1>Deletar Promoção</h1>
+<hr />
+<br />
+<h5>
+    Deseja mesmo excluir a promoção
+    <b>
+        @Html.DisplayFor(model => model.Description)
+    </b> 
+        do tipo: 
+    <b>
+        @Html.DisplayFor(model => model.Type)
+    </b>
+    Vinculada ao produto
+    <b>
+        @Html.DisplayFor(model => model.Product.Name)
+    </b>
+</h5>
+<br />
+<div class="row">
+    <form asp-action="Delete" class="col-3" method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Apagar" class="btn btn-block btn-danger me-2" />
+        <a asp-action="Index" asp-controller="Product" class="btn btn-block btn-light btn-outline-dark botaocancelar">Voltar</a>
+    </form>
+</div>

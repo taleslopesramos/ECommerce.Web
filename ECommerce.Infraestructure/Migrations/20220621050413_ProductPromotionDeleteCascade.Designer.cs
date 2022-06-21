@@ -4,6 +4,7 @@ using ECommerce.Infra.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerce.Infra.Migrations
 {
     [DbContext(typeof(SalesDbContext))]
-    partial class SalesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220621050413_ProductPromotionDeleteCascade")]
+    partial class ProductPromotionDeleteCascade
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -130,17 +132,6 @@ namespace ECommerce.Infra.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ShopCarts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreationDate = new DateTime(2022, 6, 21, 5, 29, 12, 38, DateTimeKind.Local).AddTicks(6008),
-                            FinishedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            OriginalTotalPrice = 0m,
-                            TotalDiscount = 0m,
-                            TotalPrice = 0m
-                        });
                 });
 
             modelBuilder.Entity("ECommerce.Domain.Models.Sales.FixedValuePromotion", b =>

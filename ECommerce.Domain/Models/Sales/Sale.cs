@@ -8,16 +8,20 @@ namespace ECommerce.Domain.Models.Sales
         public ShopCart ShopCart { get; set; }
         public int ProductId { get; set; }
         public Product Product { get; set; }
-        public int ProductQuantity { get; set; }
+        public int ProductQuantity { get; set; } = 1;
         public Sale()
         {
             Product = new();
             ShopCart = new();
         }
-
-        public Decimal GetSaleDiscountPrice()
+        
+        public decimal GetSaleDiscountPrice()
         {
             return Product.GetDiscountPrice(ProductQuantity);
+        }
+        public decimal GetSalePrice()
+        {
+            return Product.OriginalPrice * ProductQuantity;
         }
     }
 }

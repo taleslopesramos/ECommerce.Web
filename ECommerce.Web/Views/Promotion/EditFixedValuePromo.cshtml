@@ -1,0 +1,62 @@
+﻿@using ECommerce.Domain.Models.Sales.Enums
+@model FixedValuePromotion
+<h1>
+    Promoção de Valor Fixo
+</h1>
+<a asp-action="Index" asp-controller="Product">Lista de Produtos</a>
+<hr />
+<form asp-action="EditFixedValuePromo">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="ProductId" />
+    <input type="hidden" asp-for="Type" value="@Model.Type" />
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="@Model.Description" class="control-label"></label>
+                <input asp-for="@Model.Description" value="@Model.Description" class="form-control" />
+                <span asp-validation-for="@Model.Description" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="@Model.TargetQuantityOfItems" class="control-label"></label>*
+                <input asp-for="@Model.TargetQuantityOfItems" value="@Model.TargetQuantityOfItems" class="form-control" />
+                <span asp-validation-for="@Model.TargetQuantityOfItems" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="control-label">Valor individual do Produto</label>
+                <input id="OriginalPrice" asp-for="@Model.Product.OriginalPrice" value="@Model.Product.OriginalPrice" class="form-control currency" disabled="disabled" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Valor Final</label>
+                <input id="FinalValue" class="form-control currency"/>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label asp-for="DiscountValue" class="control-label"></label>*
+                <input id="DiscountValueView" value="@Model.DiscountValue" class="form-control currency" readonly/>
+                <input type="hidden" id="DiscountValue" name="DiscountValue" value="@Model.DiscountValue"/>
+                <span id="DiscountValueSpan" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <input type="submit" value="Salvar" class="btn btn-primary float-end" />
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <partial name="~/Views/Scripts/_EditFixedValuePromoJs.cshtml" />
+}

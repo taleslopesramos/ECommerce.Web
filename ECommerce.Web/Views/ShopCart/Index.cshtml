@@ -1,0 +1,87 @@
+﻿@model ShopCart
+@{
+    ViewData["Title"] = "Carrinho de compras";
+}
+
+<h1>
+    Carrinho de Compras
+</h1>
+<div class="row mb-1">
+    <div class="col-md-4">
+        Total original:
+    </div>
+    <div class="col-md-4">
+        @Html.DisplayFor(model => model.OriginalTotalPrice)
+    </div>
+</div>
+<div class="row mb-1">
+    <div class="col-md-4">
+        Total de descontos:
+    </div>
+    <div class="col-md-4">
+        @Html.DisplayFor(model => model.TotalDiscount)
+    </div>
+</div>
+<div class="row mb-1">
+    <div class="col-md-4">
+        Total real:
+    </div>
+    <div class="col-md-4">
+        @Html.DisplayFor(model => model.TotalPrice)
+    </div>
+</div>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Produto
+            </th>
+            <th>
+                Quantidade
+            </th>
+            <th>
+                Preço
+            </th>
+            <th>
+                Promoção
+            </th>
+            <th>
+                Opções
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var sale in Model.Sales)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => sale.Product.Name)
+                </td>
+                <td>
+                    <input asp-for="@sale.ProductQuantity" value="@sale.ProductQuantity" class="form-control saleQuantity" />
+                </td>
+                <td>
+                    @sale.GetSalePrice()
+                    @if (@sale.GetSaleDiscountPrice() != 0)
+                    {
+                        @Html.Raw("-") @sale.GetSaleDiscountPrice()
+                    }
+                </td>
+                <td>
+                    @if (sale.Product.Promotion != null)
+                        @Html.DisplayFor(model => sale.Product.Promotion.Description)
+
+
+                    </td>
+                    <td>
+                        <a class="atualizar" asp-action="UpdateQuantity" asp-controller="Sale" asp-route-quantity="@sale.ProductQuantity" asp-route-id="@sale.Id">Atualizar Quantidade</a>
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+<partial name="~/Views/Scripts/_ShopCartIndexJs.cshtml" />
+}

@@ -1,0 +1,69 @@
+﻿@using ECommerce.Domain.Models.Sales.Enums
+@model FreeItemPromotion
+
+<h1>
+    Promoção leve X pague Y
+</h1>
+<a asp-action="Index" asp-controller="Product">Lista de Produtos</a>
+<hr />
+
+<form asp-action="EditFreeItemPromo">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="ProductId" />
+    <input type="hidden" asp-for="Type" value="@Model.Type" />
+    <input type="hidden" asp-for="QuantityOfFreeItems" value="@Model.QuantityOfFreeItems" />
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label asp-for="@Model.Description" class="control-label"></label>
+                <input asp-for="@Model.Description" value="@Model.Description" class="form-control" />
+                <span asp-validation-for="@Model.Description" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label asp-for="@Model.TargetQuantityOfItems" class="control-label">Leve</label>*
+                <input asp-for="@Model.TargetQuantityOfItems" value="@Model.TargetQuantityOfItems" class="form-control" />
+                <span asp-validation-for="@Model.TargetQuantityOfItems" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>Pague</label>*
+                <input id="PaidQuantity" class="form-control" type="number" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="control-label">Valor individual do Produto</label>
+                <input id="OriginalPrice" asp-for="@Model.Product.OriginalPrice" value="@Model.Product.OriginalPrice" class="form-control currency" disabled="disabled" />
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label class="control-label">Valor do Desconto</label>
+                <input id="DiscountValue" name="DiscountValue" value="0" class="form-control currency" disabled="disabled" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label class="control-label">Valor Final</label>
+                <input id="FinalValue" name="TotalValue" value="0" class="form-control currency" disabled="disabled" />
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <input type="submit" value="Salvar" class="btn btn-primary float-end" />
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <partial name="~/Views/Scripts/_EditFreeItemPromoJs.cshtml" />
+}

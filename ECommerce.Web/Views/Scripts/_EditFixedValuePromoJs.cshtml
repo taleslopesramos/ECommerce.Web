@@ -1,0 +1,43 @@
+﻿<script>
+    $(function(){
+        $("#FinalValue").on("keyup", calcFinalDiscount);
+        $("#TargetQuantityOfItems").on("keyup", calcFinalDiscount);
+        calcFinalValue()
+    });
+    
+    function calcFinalDiscount(){
+        let itemQuantity = parseInt($("#TargetQuantityOfItems").val());
+        let originalPrice = currencyToFloat($("#OriginalPrice").val());
+        let finalValue = currencyToFloat($("#FinalValue").val());
+        
+        var discountValue = itemQuantity * originalPrice - finalValue
+        console.log({
+            itemQuantity,
+            originalPrice,
+            finalValue,
+            discountValue
+        })
+
+        if(discountValue < 0){
+            alert("O desconto não pode ser negativo.");
+            $("#FinalValue").val(itemQuantity * originalPrice)
+            return;
+        }
+
+        var discountValueStr = discountValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+        $("#DiscountValue").val(discountValue);
+        $("#DiscountValueView").val(discountValueStr);
+    }
+
+    function calcFinalValue(){
+        let itemQuantity = parseInt($("#TargetQuantityOfItems").val());
+        let originalPrice = currencyToFloat($("#OriginalPrice").val());
+        let discountValue = currencyToFloat($("#DiscountValue").val());
+
+        let finalValue = originalPrice * itemQuantity - discountValue;
+        let finalValueStr = finalValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        $("#FinalValue").val(finalValueStr);
+    }
+
+
+</script>

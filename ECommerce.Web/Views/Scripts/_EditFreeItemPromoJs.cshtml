@@ -1,0 +1,46 @@
+﻿<script>
+    $(function(){
+        $("#TargetQuantityOfItems").on("keyup", calcFinalDiscount);
+        $("#PaidQuantity").on("keyup", calcFinalDiscount);
+        calcPaidQuantity();
+        calcFinalDiscount();
+    });
+
+    function calcPaidQuantity(){
+        let TargetQuantityOfItemsVal = parseInt($("#TargetQuantityOfItems").val());
+        let PaidQuantity = $("#PaidQuantity");
+        let QuantityOfFreeItemsVal = parseInt($("#QuantityOfFreeItems").val());
+        PaidQuantity.val(TargetQuantityOfItemsVal-QuantityOfFreeItemsVal);
+    }
+
+    function calcFinalDiscount(){
+        let QuantityOfFreeItems = $("#QuantityOfFreeItems");
+        let PaidQuantity = $("#PaidQuantity");
+        let GetQuantity = $("#TargetQuantityOfItems");
+        
+        let PaidQuantityVal = parseInt(PaidQuantity.val());
+        let GetQuantityVal = parseInt(GetQuantity.val());
+
+        let quantityOfFreeItemsVal = GetQuantityVal-PaidQuantityVal;
+
+        if(quantityOfFreeItemsVal < 0){
+            alert("Não é possível pagar por mais items do que se leva!")
+            return;
+        }
+
+        QuantityOfFreeItems.val(quantityOfFreeItemsVal);
+        
+        let OriginalPriceVal = currencyToFloat($("#OriginalPrice").val());
+        let DiscountValueElem = $("#DiscountValue");
+        let DiscountValue = OriginalPriceVal*quantityOfFreeItemsVal;
+        let DiscountValueStr = DiscountValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+        DiscountValueElem.val(DiscountValueStr)
+        
+        let FinalValueElem = $("#FinalValue");
+
+        let FinalValue = PaidQuantityVal*OriginalPriceVal;
+        let FinalValueStr = FinalValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        FinalValueElem.val(FinalValueStr);
+    }
+</script>
